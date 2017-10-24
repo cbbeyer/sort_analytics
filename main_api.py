@@ -20,7 +20,7 @@ SORT_TYPE = [
     [ 'bubbleSort',    'Bubble Sort'      ],
     [ 'selectionSort', 'Selection Sort'   ],
     [ 'nativeSort',    'Native Sort'      ],
-    [ 'quickSort',    'Quick Sort'      ],
+    [ 'quickSort',     'Quick Sort'       ],
 ]
 
 # current_milli_time = lambda: int(round(time.time() * 1000))

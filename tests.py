@@ -1,154 +1,119 @@
 import unittest
 from bubble_sort import bubbleSort
-from worddata import WordData
 from insertion_sort import insertionSort
 from selection_sort import selectionSort
-from merge_api import merge_lists
-from main_api import print_words
+from native_sort import nativeSort
+from quick_sort import quickSort
 
 # python3 -m unittest tests.py
 class SortTesting(unittest.TestCase):
-    def test_create_WordData_array(self):
-        words = []
-        w1 = WordData('1 Nephi', 'm', 7, 7)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'd', 3, 3)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'a', 1, 1)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'e', 4, 4)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'h', 6, 6)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'i', 6, 6)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'k', 6, 6)
-        words.append(w1)
-        w1 = WordData('1 Nephi', 'c', 2, 2)
-        words.append(w1)
+    def test_create_array(self):
+        arr = [1,3,2,5,7,8,9,4,3,2,14,46,2,4,1234,23,4511,24,1234,234,52,534645,67,45687,4578]
+        return arr
 
-        return words
+    def test_create_array2(self):
+        arr2 = [1,3,2,5,7,8,9,4,3,2,14,46,2,4,1234,23,4511,24,1234,234,52,534645,67,45687,4578,2,3,4,24,345,6,4567,2345,234,52,345,2345,2345,2345,2345,2345,123,5]
+        return arr2
 
-    def test_create_WordData_array2(self):
-        words2 = []
-
-        w1 = WordData('4 Nephi', 'b', 1, 1)
-        words2.append(w1)
-        w1 = WordData('4 Nephi', 'o', 9, 9)
-        words2.append(w1)
-        w1 = WordData('1 Nephi', 'j', 6, 6)
-        words2.append(w1)
-        w1 = WordData('1 Nephi', 'g', 6, 6)
-        words2.append(w1)
-        w1 = WordData('4 Nephi', 'n', 8, 8)
-        words2.append(w1)
-        w1 = WordData('4 Nephi', 'l', 7, 7)
-        words2.append(w1)
-        w1 = WordData('4 Nephi', 'f', 5, 5)
-        words2.append(w1)
-
-        return words2
 
 
     # BUBBLE SORT
     def test_bubbleSort_array(self):
-        words = self.test_create_WordData_array()
-        sorted_words = bubbleSort(words)
+        arr = self.test_create_array()
+        sorted_arr = bubbleSort(arr)
 
-        self.assertEqual(sorted_words[0].word, 'a')
+        self.assertEqual(sorted_arr[0], 1)
 
     def test_bubbleSort_array_last_val(self):
-        words = self.test_create_WordData_array()
-        sorted_words = bubbleSort(words)
+        arr = self.test_create_array()
+        sorted_arr = bubbleSort(arr)
 
-        self.assertEqual(sorted_words[7].word, 'm')
+        self.assertEqual(sorted_arr[3], 2)
 
     def test_bubbleSort_fail(self):
-        words = self.test_create_WordData_array()
-        sorted_words = bubbleSort(words)
+        arr = self.test_create_array()
+        sorted_arr = bubbleSort(arr)
 
-        self.assertEqual(sorted_words[7].word, 'h')
+        self.assertEqual(sorted_arr[7], 1)
 
 
 
     # SELECTION SORT
     def test_selectionSort_array(self):
-        words = self.test_create_WordData_array()
-        sorted_words = selectionSort(words)
+        arr = self.test_create_array()
+        sorted_arr = selectionSort(arr)
 
-        self.assertEqual(sorted_words[0].word, 'a')
+        self.assertEqual(sorted_arr[0], 1)
 
     def test_selectionSort_array_last_val(self):
-        words = self.test_create_WordData_array()
-        sorted_words = selectionSort(words)
+        arr = self.test_create_array()
+        sorted_arr = selectionSort(arr)
 
-        self.assertEqual(sorted_words[7].word, 'm')
+        self.assertEqual(sorted_arr[3], 2)
 
     def test_selectionSort_fail(self):
-        words = self.test_create_WordData_array()
-        sorted_words = selectionSort(words)
+        arr = self.test_create_array()
+        sorted_arr = selectionSort(arr)
 
-        self.assertEqual(sorted_words[7].word, 'l')
-
+        self.assertEqual(sorted_arr[7], 1)
 
 
     # INSERTION SORT
     def test_insertionSort_array(self):
-        words = self.test_create_WordData_array()
-        sorted_words = insertionSort(words)
+        arr = self.test_create_array()
+        sorted_arr = insertionSort(arr)
 
-        self.assertEqual(sorted_words[0].word, 'a')
+        self.assertEqual(sorted_arr[0], 1)
 
     def test_insertionSort_array_last_val(self):
-        words = self.test_create_WordData_array()
-        sorted_words = insertionSort(words)
+        arr = self.test_create_array()
+        sorted_arr = insertionSort(arr)
 
-        self.assertEqual(sorted_words[7].word, 'm')
+        self.assertEqual(sorted_arr[3], 2)
 
     def test_insertionSort_fail(self):
-        words = self.test_create_WordData_array()
-        sorted_words = insertionSort(words)
+        arr = self.test_create_array()
+        sorted_arr = insertionSort(arr)
 
-        self.assertEqual(sorted_words[7].word, 'f')
-
-    # MERGING TWO LISTS TOGETHER
-    def test_merge_two_lists(self):
-        words = self.test_create_WordData_array()
-        words2 = self.test_create_WordData_array2()
-
-        sorted_words = selectionSort(words)
-        sorted_words2 = selectionSort(words2)
-
-        merged_list = merge_lists(sorted_words, sorted_words2)
-
-        self.assertEqual(merged_list[1].word, 'b')
-
-    def test_merge_two_lists_last_val_fail(self):
-        words = self.test_create_WordData_array()
-        words2 = self.test_create_WordData_array2()
-
-        sorted_words = selectionSort(words)
-        sorted_words2 = selectionSort(words2)
-
-        merged_list = merge_lists(sorted_words, sorted_words2)
-
-        self.assertEqual(merged_list[14].word, 'l')
-
-    def test_merge_two_lists_first_val(self):
-        words = self.test_create_WordData_array()
-        words2 = self.test_create_WordData_array2()
-
-        sorted_words = selectionSort(words)
-        sorted_words2 = selectionSort(words2)
-
-        merged_list = merge_lists(sorted_words, sorted_words2)
-
-        self.assertEqual(merged_list[14].word, 'o')
+        self.assertEqual(sorted_arr[7], 1)
 
 
 
-    # CREATING WORD DATA object
-    def test_create_wordData_object(self):
-        word_data = WordData('1 Nephi', 'the', '209', '5')
+    # NATIVE SORT
+    def test_nativeSort_array(self):
+        arr = self.test_create_array()
+        sorted_arr = bubbleSort(arr)
 
-        self.assertEqual(word_data.book, '1 Nephi')
+        self.assertEqual(sorted_arr[0], 1)
+
+    def test_nativeSort_array_last_val(self):
+        arr = self.test_create_array()
+        sorted_arr = bubbleSort(arr)
+
+        self.assertEqual(sorted_arr[3], 2)
+
+    def test_nativeSort_fail(self):
+        arr = self.test_create_array()
+        sorted_arr = insertionSort(arr)
+
+        self.assertEqual(sorted_arr[7], 1)
+
+
+    # QUICK SORT
+    def test_quickSort_array(self):
+        arr = self.test_create_array()
+        sorted_arr = quickSort(arr)
+
+        self.assertEqual(sorted_arr[0], 1)
+
+    def test_quickSort_array_last_val(self):
+        arr = self.test_create_array()
+        sorted_arr = quickSort(arr)
+
+        self.assertEqual(sorted_arr[3], 2)
+
+    def test_quickSort_fail(self):
+        arr = self.test_create_array()
+        sorted_arr = insertionSort(arr)
+
+        self.assertEqual(sorted_arr[7], 1)
