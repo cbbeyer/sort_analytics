@@ -4,6 +4,7 @@ from bubble_sort import bubbleSort
 from insertion_sort import insertionSort
 from selection_sort import selectionSort
 from native_sort import nativeSort
+from quick_sort import quickSort
 
 FILENAMES = [
     [ 'list1.txt', 'int'   ],
@@ -19,6 +20,7 @@ SORT_TYPE = [
     [ 'bubbleSort',    'Bubble Sort'      ],
     [ 'selectionSort', 'Selection Sort'   ],
     [ 'nativeSort',    'Native Sort'      ],
+    [ 'quickSort',    'Quick Sort'      ],
 ]
 
 # current_milli_time = lambda: int(round(time.time() * 1000))
@@ -58,19 +60,26 @@ def main():
                 list_of_lists.append(num_list[:])
 
             # Get start time
-            start_time = int(round(time.time() * 1000))
+            start_time = time.time()
 
             # Sort lists
             for unsorted in list_of_lists:
                 sorted_insertion = sortType(unsorted)
 
             # Get end time
-            end_time = int(round(time.time() * 1000))
+            end_time = time.time()
             total_time = (end_time - start_time)
 
             # Create result object
             result = Result(SORT_TYPE[sti][1], total_time, list_of_lists[0])
             results.append(result)
+
+            for i_res in range(len(results)):
+                if i_res == 0:
+                    results[i_res].relative = 0
+                else:
+                    results[i_res].relative = (results[i_res].duration - results[0].duration)/results[0].duration
+
 
             # Sort results by duration
             results.sort(key=lambda x: x.duration, reverse=False)
@@ -78,10 +87,10 @@ def main():
 
         for r in results:
             print(r.name)
-            print(r.duration)
-            print(r.relative)
-            print('First 10: {}'.format(r.nums[:10]))
-            print('Last 10: {}'.format(r.nums[-10:]))
+            print('{0:.6f}'.format(r.duration))
+            print(int(round(r.relative, 2)), '%')
+            print('First 10: {}'.format(', '.join(str(v) for v in r.nums[:10])))
+            print('Last 10: {}'.format(', '.join(str(v) for v in r.nums[-10:])))
             print()
 
 ### Main runner ###
