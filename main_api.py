@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import time
 from bubble_sort import bubbleSort
 from insertion_sort import insertionSort
@@ -7,20 +8,20 @@ from native_sort import nativeSort
 from quick_sort import quickSort
 
 FILENAMES = [
-    [ 'list1.txt', 'int'   ],
-    [ 'list2.txt', 'int'   ],
-    [ 'list3.txt', 'int'   ],
-    [ 'list4.txt', 'int'   ],
-    [ 'list5.txt', 'float' ],
-    [ 'list6.txt', 'int'   ],
+    [ 'list1.txt', 'int'   , 'list1.txt'         ],
+    [ 'list2.txt', 'int'   , 'Powers of 2'       ],
+    [ 'list3.txt', 'int'   , 'list3.txt'         ],
+    [ 'list4.txt', 'int'   , 'Fibonacci Sequence'],
+    [ 'list5.txt', 'float' , 'list5.txt'         ],
+    [ 'list6.txt', 'int'   , 'list6.txt'         ],
 ]
 
 SORT_TYPE = [
-    [ 'insertionSort', 'Insertion Sort'   ],
-    [ 'bubbleSort',    'Bubble Sort'      ],
-    [ 'selectionSort', 'Selection Sort'   ],
-    [ 'nativeSort',    'Native Sort'      ],
-    [ 'quickSort',     'Quick Sort'       ],
+    [ 'insertionSort', 'Insertion Sort'     ],
+    [ 'bubbleSort'   , 'Bubble Sort'        ],
+    [ 'selectionSort', 'Selection Sort'     ],
+    [ 'nativeSort'   , 'Native LanguageSort'],
+    [ 'quickSort'    , 'Quicksort'          ],
 ]
 
 # current_milli_time = lambda: int(round(time.time() * 1000))
@@ -39,7 +40,7 @@ def main():
         # Open and read in txt file
         results = []
 
-        print(FILENAMES[i][0])
+        print(FILENAMES[i][2])
         for sti in range(len(SORT_TYPE)):
 
             sortType = globals()[SORT_TYPE[sti][0]]
@@ -88,11 +89,18 @@ def main():
         for r in results:
             print(r.name)
             print('{0:.6f}'.format(r.duration))
-            print(int(round(r.relative, 2)), '%')
+            print('{}{}'.format(int(round(r.relative, 2)),'%'))
             print('First 10: {}'.format(', '.join(str(v) for v in r.nums[:10])))
             print('Last 10: {}'.format(', '.join(str(v) for v in r.nums[-10:])))
             print()
 
 ### Main runner ###
-if __name__ == '__main__':
-    main()
+with open('output.txt', 'w') as f:
+    orig_stdout = sys.stdout
+    sys.stdout = f
+    if __name__ == '__main__':
+        main()
+    sys.stdout = orig_stdout
+
+# if __name__ == '__main__':
+#     main()
